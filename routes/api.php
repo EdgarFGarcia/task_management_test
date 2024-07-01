@@ -27,4 +27,5 @@ Route::group([
     Route::post('/addATask', [App\Http\Controllers\Task\CTasks::class, 'addATask']);
     Route::get('/getTasks/{limit?}', [App\Http\Controllers\Task\CTasks::class, 'getTasks']);
     Route::put('/updateATask/{id?}', [App\Http\Controllers\Task\CTasks::class, 'updateATask']);
+    Route::delete('/deleteTask/{id?}', [App\Http\Controllers\Task\CTasks::class, 'deleteTask']);
 });

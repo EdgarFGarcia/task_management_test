@@ -50,4 +50,16 @@ interface IServiceTask
         array $data,
         int $id
     ) : object | int;
+
+    /**
+     * soft delete a task
+     * @params
+     * int $id
+     *
+     * @return
+     * int | bool
+     */
+    public function deleteTask(
+        int $id
+    ) : int | bool;
 }

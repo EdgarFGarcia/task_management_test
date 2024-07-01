@@ -57,4 +57,18 @@ class RepositoryTask implements IRepositoryTask
         return Task::where('id', $id)
         ->update($data);
     }
+
+    /**
+     * soft delete a task
+     * @params
+     * int $id
+     *
+     * @return
+     * int | bool
+     */
+    public function deleteTask(
+        int $id
+    ) : int | bool{
+        return Task::where('id', $id)->delete();
+    }
 }

@@ -76,13 +76,38 @@ class ServiceTask implements IServiceTask
         bool $sort_title,
         int $is_publish
     ) : object | null | string{
-        return $paginate_result = $this->repo_task->getTasks($this->getUser()->id)
+        $paginate_result = $this->repo_task->getTasks($this->getUser()->id)
+            ->where('title', 'like', '%' . $title == null ? '' : $title . '%')
+            ->where('is_publish', $is_publish)
+            ->orderBy('created_at', $sort_date ? 'desc' : 'asc')
+            ->orderBy('title', $sort_title ? 'desc' : 'asc')
+            ->paginate($limit == 0 ? 10 : $limit);
+
+        if($task_status != 0){
+            return $this->repo_task->getTasks($this->getUser()->id)
             ->where('title', 'like', '%' . $title == null ? '' : $title . '%')
             ->where('task_status_id', $task_status)
             ->where('is_publish', $is_publish)
             ->orderBy('created_at', $sort_date ? 'desc' : 'asc')
             ->orderBy('title', $sort_title ? 'desc' : 'asc')
             ->paginate($limit == 0 ? 10 : $limit);
+        }
+
+        return $paginate_result;
+    }
+
+    /**
+     * soft delete a task
+     * @params
+     * int $id
+     *
+     * @return
+     * int | bool
+     */
+    public function deleteTask(
+        int $id
+    ) : int | bool{
+        return $this->repo_task->deleteTask($id);
     }
 
     /**

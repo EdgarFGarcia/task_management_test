@@ -123,4 +123,30 @@ class CTasks extends Controller
             return $this->error($e, 500);
         }
     }
+
+    /**
+     * soft delete a task
+     * @params
+     * int $id
+     *
+     * @return
+     * object
+     */
+    public function deleteTask(
+        int $id
+    ){
+        try{
+            $delete_item = $this->service_task->deleteTask($id);
+            if($delete_item){
+                return response()->json([
+                    'response'  => true
+                ], 200);
+            }
+            return response()->json([
+                'response'  => false
+            ], 500);
+        }catch(\Exception $e){
+            return $this->error($e, 500);
+        }
+    }
 }
