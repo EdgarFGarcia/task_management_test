@@ -79,7 +79,7 @@ class CTasks extends Controller
         int $limit = 0
     )  {
         try{
-            return $task_data = $this->service_task->getTasks(
+            $task_data = $this->service_task->getTasks(
                 $limit,
                 $request->title,
                 $request->task_status,
